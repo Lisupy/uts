@@ -5,7 +5,7 @@ LABEL description="This is the building docker images for uts"
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
     # install essential packages
     apt-get clean && apt-get update -y && \
-    apt-get install -y build-essentail cmake \
+    apt-get install -y build-essential cmake && \
     apt-get clean
 
 RUN locale-gen en_US.UTF-8 && \
