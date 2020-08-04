@@ -2,9 +2,7 @@ FROM ubuntu:18.04
 LABEL maintianer="Lisupy"
 LABEL description="This is the develop docker images for uts"
 
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
-    # install essential packages
-    apt-get clean && apt-get update && \
+RUN apt-get clean && apt-get update && \
     apt-get install -y \
         build-essential cmake gdb vim curl netcat locales git tcpdump \
         iputils-ping && \
