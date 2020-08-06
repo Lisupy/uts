@@ -10,4 +10,9 @@ RUN locale-gen en_US.UTF-8 && \
     echo 'export LANG=en_US.UTF-8' >> /root/.bashrc && \
     echo 'export LC_ALL=en_US.UTF-8' >> /root/.bashrc
 
+WORKDIR "/root/"
+
+VOLUME [ "/root/app", "/root/res" ]
+
+
 ENTRYPOINT [ "/bin/bash" ]

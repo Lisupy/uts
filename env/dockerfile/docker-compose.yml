@@ -1,0 +1,17 @@
+version: "3.0"
+services:
+    dev_env:
+        build:
+            context: ./
+            dockerfile: Dockerfile_dev
+        image: uts:dev
+        cap_add:
+            - SYS_PTRACE
+        security_opt: 
+            - seccomp:unconfined
+        container_name: uts_dev
+        volumes:
+            - ../../:/root/app
+        stdin_open: true
+        tty: true
+        privileged: true
