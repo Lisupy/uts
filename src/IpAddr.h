@@ -16,8 +16,10 @@ enum IpAddrType {
 // 对IP地址的封装，IPv4 & IPv6
 class IpAddr {
     public:
-        IpAddr() = default;
+        IpAddr();
         ~IpAddr() = default;
+        IpAddr(const IpAddr &) = default;
+        IpAddr& operator=(const IpAddr&) = default;
         IpAddr(IpAddrType type, const std::string &, uint16_t port);
 
     public:
@@ -25,6 +27,7 @@ class IpAddr {
         std::string get_host_str() const;
         uint16_t get_port() const;
         IpAddrType get_addr_type() const;
+        
         int get_size() const;
         sockaddr* get_sa_ptr();
         const sockaddr* get_sa_ptr() const;

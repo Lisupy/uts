@@ -1,24 +1,40 @@
 #include "IpAddr.h"
+#include "arpa/inet.h"
+
 #include <string> 
-#include <cstring> 
+#include <cstring>
 
 using std::string;
 
+IpAddr::IpAddr() {
+    std::memset(&m_addr, 0, sizeof(m_addr));
+}
 
-IpAddr::IpAddr(IpAddrType ip_type, const string &str_ip, uint16_t port) {
+
+IpAddr::IpAddr(IpAddrType ip_type, const string &str_ip, uint16_t port) :IpAddr() {
     std::memset(&m_addr, 0, sizeof(m_addr));
     switch (ip_type) {
         case v4:
+            sockaddr_in *p_m_addr = (sockaddr_in *)&m_addr;
+            p_m_addr->sin_family = AF_INET;
+            p_m_addr->sin_port = htons(port);
+            inet_pton(AF_INET, str_ip.c_str(), &(p_m_addr->sin_addr));
             break;
         case v6:
+            sockaddr_in6 *p_m_addr = (sockaddr_in6 *)&m_addr;
+            p_m_addr->sin6_family = AF_INET6;
+            p_m_addr->sin6_port = htons(port);
+            inet_pton(AF_INET6, str_ip.c_str(), &(p_m_addr->sin6_addr));
             break;
-    }   
+        default:
+            break;
+    }
 }
 
 // ================ public interface ==================
 string IpAddr::get_str() const {
     string str_ip = get_host_str();
-    uint16_t port = get_port();   
+    uint16_t port = get_port();
     str_ip += ":" + std::to_string(port);
 }
 
